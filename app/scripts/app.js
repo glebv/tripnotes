@@ -10,5 +10,12 @@
  */
 angular
   .module('tripnotesApp', [
-    'ngResource'
-  ]);
+    'ngResource',
+    'ui.router',
+    'ui.bootstrap',
+    'config',
+    'main'
+  ])
+  .config(['$locationProvider', '$urlRouterProvider', function($locationProvider,  $urlRouterProvider) {
+    $locationProvider.html5Mode(true);
+  }]);

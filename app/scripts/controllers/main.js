@@ -7,11 +7,15 @@
  * # MainCtrl
  * Controller of the tripnotesApp
  */
-angular.module('tripnotesApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+angular.module('main', ['tripnotesApp', 'ui.router'])
+  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('main', {
+        url: '/',
+        templateUrl: '/views/main.html',
+        controller: 'MainCtrl'
+      });
+  }])
+  .controller('MainCtrl', ['$scope', 'google',  function ($scope, google) {
+    $scope.searchLocation = google.searchLocation;
+  }]);
