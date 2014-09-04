@@ -23,11 +23,4 @@ angular.module('tripnotesApp')
         return addresses;
       });
     };
-
-    this.sendMessage = function(msg) {
-      return $http.get('somthing.json?msg=' + msg)
-        .then(function(result) {
-          return result.data;
-        });
-    };
   }]);
