@@ -367,6 +367,7 @@ module.exports = function (grunt) {
       }
     },
 
+
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
@@ -379,6 +380,9 @@ module.exports = function (grunt) {
         'compass:dist',
         'imagemin',
         'svgmin'
+      ],
+      protractor : [
+        'protractor_webdriver:run'
       ]
     },
 
@@ -388,6 +392,27 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    protractor_webdriver: {
+      run: {
+        options: {
+          command: 'webdriver-manager start'
+        }
+      }
+    },
+
+    protractor: {
+        options: {
+          configFile: "test/protractor.conf.js",
+          keepAlive: false,
+          noColor: false
+//          args: {
+//            seleniumServerJar: '/usr/local/lib/node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
+//            chromeDriver: '/usr/local/lib/node_modules/protractor/selenium/chromedriver'
+//          }
+        },
+        run : {}
     }
   });
 
@@ -418,6 +443,15 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma'
+  ]);
+
+  grunt.registerTask('test:e2e', [
+    'clean:server',
+    'concurrent:test',
+    'concurrent:protractor',
+    'autoprefixer',
+    'connect:test',
+    'protractor:run'
   ]);
 
   grunt.registerTask('build', [
